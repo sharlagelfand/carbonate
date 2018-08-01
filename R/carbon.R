@@ -6,6 +6,7 @@
 carbon <- R6::R6Class(classname = 'Carbon',
                       public = list(
                         initialize = function(code = clipr::read_clip()){
+                          completeme::register_completion(carbonate = populate)
                           self$code = code
                         },
                         code                         = NULL,
