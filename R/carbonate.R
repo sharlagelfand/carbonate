@@ -35,28 +35,49 @@
   
   path <- rD$client$extraCapabilities$chromeOptions$prefs$download.default_directory  
   
+  if(!dir.exists(path)){
+    dir.create(path,showWarnings = FALSE,recursive = TRUE)
+  }
+  
   device <- gsub('^(.*?)\\.','',basename(file))
   
   remDr$navigate(self$uri(code = code))
-  
+
   Sys.sleep(2)
-  
-  webElem <- remDr$findElement(using = 'xpath',value = '//*[@id="toolbar"]/div[5]/div')
-  
-  webElem$clickElement()
-  
-  Sys.sleep(2)
-  
-  webSubElem <- remDr$findElement(using = 'xpath',value = sprintf('//*[@id="downshift-2-item-%s"]',as.numeric(device=='svg')))
-  
-  webSubElem$clickElement()
-  
-  Sys.sleep(3)
-  
-  file.rename(file.path(path,sprintf('carbon.%s',device)),file.path(path,sprintf('rcarbon.%s',device)))
-  
-  file.rename(file.path(path,sprintf('rcarbon.%s',device)),file.path(path,file))
-  
+    
+  if(self$webshot){
+    
+    remDr$screenshot(file = file.path(tempdir(),'tmpScreenShot.png'))
+    
+    webElem <- remDr$findElement(using = 'xpath',value = '//*[@id="container-bg"]')
+    
+    wh <- webElem$getElementSize()[c('width','height')]
+    xy <- webElem$getElementLocationInView()
+    
+    magick::image_read(file.path(tempdir(),'tmpScreenShot.png'))%>%
+      magick::image_crop(sprintf('%sx%s+%s+%s',wh$width,wh$height,xy$x,xy$y))%>%
+      magick::image_write(file.path(path,file))
+
+  }else{
+
+    webElem <- remDr$findElement(using = 'xpath',value = '//*[@id="toolbar"]/div[5]/div')
+    
+    webElem$clickElement()
+    
+    Sys.sleep(2)
+    
+    webSubElem <- remDr$findElement(using = 'xpath',value = sprintf('//*[@id="downshift-2-item-%s"]',as.numeric(device=='svg')))
+    
+    webSubElem$clickElement()
+    
+    Sys.sleep(3)
+    
+    file.rename(file.path(path,sprintf('carbon.%s',device)),file.path(path,sprintf('rcarbon.%s',device)))
+    
+    file.rename(file.path(path,sprintf('rcarbon.%s',device)),file.path(path,file))
+    
+  }
+
   img <- magick::image_read(file.path(path,file))
   
   self$carbons <- append(self$carbons,img)

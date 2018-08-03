@@ -29,6 +29,7 @@
 #'   list("profile.default_content_settings.popups" = 0L,"download.prompt_for_download" = FALSE,"download.default_directory" = tempdir())
 #' @param rD RSelenium Driver object
 #' @param cDrv Chrome Driver object from wdman
+#' @param webshot boolean, use a screen grab for the image (TRUE) or download the image file (FALSE), Default: FALSE
 #' @name carbon_fields
 #' @rdname carbon_fields
 #' @aliases carbon-fields

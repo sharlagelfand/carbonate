@@ -146,6 +146,7 @@ carbon <- R6::R6Class(classname = 'Carbon',
                         square_image                 = FALSE, 
                         relative_export_size         = 1,
                         add_watermark                = FALSE,
+                        webshot                      = FALSE,
                         carbons = list(),
                         chrome_args                  = c('--disable-gpu', '--window-size=1280,800'),
                         chrome_pref                   = list(

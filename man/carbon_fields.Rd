@@ -56,6 +56,8 @@ list("profile.default_content_settings.popups" = 0L,"download.prompt_for_downloa
 \item{rD}{RSelenium Driver object}
 
 \item{cDrv}{Chrome Driver object from wdman}
+
+\item{webshot}{boolean, use a screen grab for the image (TRUE) or download the image file (FALSE), Default: FALSE}
 }
 \description{
 Fields that can be changed in the \link[carbonate:carbon]{Carbon} object

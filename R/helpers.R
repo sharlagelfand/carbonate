@@ -1,3 +1,12 @@
+#' @title re-export magick pipe operator
+#' 
+#' @inherit magick::'%>%'
+#' @importFrom magick %>%
+#' @name %>%
+#' @rdname pipe
+#' @export
+NULL
+
 # @title create rgba call for carbon
 # @description combines rbga vector into a string
 # @param self carbon self object
