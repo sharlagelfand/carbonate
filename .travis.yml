@@ -12,7 +12,7 @@ addons:
 after_success:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'devtools::install(); covrpage::covrpage(preview=FALSE,update_badge = FALSE,vignette = TRUE)'
-  - Rscript -e 'pkgdown::build_site()'
+  - Rscript -e 'pkgdown::build_articles()'
 
 r_github_packages:
   - yonicd/covrpage
